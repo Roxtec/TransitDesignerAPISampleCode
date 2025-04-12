@@ -1,72 +1,66 @@
 using RtdApiCodeSamples;
 using System;
-using System.Threading.Tasks;
+using System.Threading;
 using Newtonsoft.Json;
 
-public class Program
+var options = Common.ParseCommandLine(args);
+
+Console.WriteLine("Please enter a transit name:");
+var transitName = Console.ReadLine();
+
+Console.WriteLine($"Project ID: {options.ProjectId}");
+Console.WriteLine($"Project API key: {options.ProjectApiKey}");
+Console.WriteLine($"Transit name: {transitName}");
+
+// Create a client and set to authenticate using the API key
+var client = Common.CreateClient(options);
+
+// Build a document with settings for the new transit
+var createDocument = new SingleTransitLayoutCreateUpdateDocument
 {
-    public static async Task Main(string[] args)
+    Data = new TransitLayoutCreateUpdateResource
     {
-        var options = Common.ParseCommandLine(args);
-        
-        Console.WriteLine("Please enter a transit name:");
-        var transitName = Console.ReadLine();
-        
-        Console.WriteLine($"Project ID: {options.ProjectId}");
-        Console.WriteLine($"Project API key: {options.ProjectApiKey}");
-        Console.WriteLine($"Transit name: {transitName}");
-
-        // Create a client and set to authenticate using the API key
-        var client = Common.CreateClient(options);
-
-        // Build a document with settings for the new transit
-        var createDocument = new SingleTransitLayoutCreateUpdateDocument
+        Type = Common.TransitLayoutsType,
+        Attributes = new Attributes
         {
-            Data = new TransitLayoutCreateUpdateResource
+            Name = transitName,
+            Cables =
+            [
+                new Cable {Diameter = 20, Id = "a"},
+                new Cable {Diameter = 20, Id = "b"},
+                new Cable {Diameter = 20, Id = "c"},
+                new Cable {Diameter = 20, Id = "d"}
+            ],
+            Frame = new Frame
             {
-                Type = Common.TransitLayoutsType,
-                Attributes = new Attributes
+                PartNumber = "S006000000121" // S 6x1 AISI316
+            },
+            Drawing = new Drawing
+            {
+                Revision = "A"
+            },
+            Modules = new ModuleSpecification
+            {
+                EmcSystem = new EmcSystem
                 {
-                    Name = transitName,
-                    Cables = new[]
-                    {
-                        new Cable {Diameter = 20, Id = "a"},
-                        new Cable {Diameter = 20, Id = "b"},
-                        new Cable {Diameter = 20, Id = "c"},
-                        new Cable {Diameter = 20, Id = "d"}
-                    },
-                    Frame = new Frame
-                    {
-                        PartNumber = "S006000000121" // S 6x1 AISI316
-                    },
-                    Drawing = new Drawing
-                    {
-                        Revision = "A"
-                    },
-                    Modules = new ModuleSpecification
-                    {
-                        EmcSystem = new EmcSystem
-                        {
-                            Center = true,
-                            Type = "PE"
-                        }
-                    }
-                },
-                Relationships = new Relationships
-                {
-                    Project = Common.CreateProjectRelationship(options.ProjectId)
+                    Center = true,
+                    Type = "PE"
                 }
             }
-        };
-        
-        // Send the transit create request to the Transit Designer server
-        var resultDocument = await client.CreateTransitLayoutAsync(options.ProjectId, createDocument, default);
-
-        Console.WriteLine("");
-        Console.WriteLine($"The transit was successfully created! It has transit ID {resultDocument.Data.Id}");
-
-        Console.WriteLine("");
-        Console.WriteLine("The complete server response was:");
-        Console.WriteLine(JsonConvert.SerializeObject(resultDocument, Formatting.Indented));
+        },
+        Relationships = new Relationships
+        {
+            Project = Common.CreateProjectRelationship(options.ProjectId)
+        }
     }
-}
+};
+
+// Send the transit create request to the Transit Designer server
+var resultDocument = await client.CreateTransitLayoutAsync(options.ProjectId, createDocument, CancellationToken.None);
+
+Console.WriteLine("");
+Console.WriteLine($"The transit was successfully created! It has transit ID {resultDocument.Data.Id}");
+
+Console.WriteLine("");
+Console.WriteLine("The complete server response was:");
+Console.WriteLine(JsonConvert.SerializeObject(resultDocument, Formatting.Indented));

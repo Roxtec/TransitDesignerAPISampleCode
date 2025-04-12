@@ -1,29 +1,23 @@
 using System;
-using System.Threading.Tasks;
+using System.Threading;
 using Newtonsoft.Json;
 
-public class Program
-{
-    public static async Task Main(string[] args)
-    {
-        var options = Common.ParseCommandLine(args);
+var options = Common.ParseCommandLine(args);
 
-        Console.WriteLine($"Listing transit layouts for project {options.ProjectId}");
+Console.WriteLine($"Listing transit layouts for project {options.ProjectId}");
 
-        var client = Common.CreateClient(options);
+var client = Common.CreateClient(options);
 
-        var document = await client.ListTransitLayoutsAsync(options.ProjectId, null, default);
-        
-        Console.WriteLine("");
-        Console.WriteLine("The complete server response was:");
-        Console.WriteLine(JsonConvert.SerializeObject(document, Formatting.Indented));
+var document = await client.ListTransitLayoutsAsync(options.ProjectId, null, CancellationToken.None);
 
-        Console.WriteLine($"Listing transit layouts for project {options.ProjectId}, name only.");
+Console.WriteLine("");
+Console.WriteLine("The complete server response was:");
+Console.WriteLine(JsonConvert.SerializeObject(document, Formatting.Indented));
 
-        var filteredDocument = await client.ListTransitLayoutsAsync(options.ProjectId, "name", default);
+Console.WriteLine($"Listing transit layouts for project {options.ProjectId}, name only.");
 
-        Console.WriteLine("");
-        Console.WriteLine("The complete server response was:");
-        Console.WriteLine(JsonConvert.SerializeObject(filteredDocument, Formatting.Indented));
-    }
-}
+var filteredDocument = await client.ListTransitLayoutsAsync(options.ProjectId, "name", CancellationToken.None);
+
+Console.WriteLine("");
+Console.WriteLine("The complete server response was:");
+Console.WriteLine(JsonConvert.SerializeObject(filteredDocument, Formatting.Indented));
