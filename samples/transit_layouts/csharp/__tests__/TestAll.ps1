@@ -49,7 +49,7 @@ Write-Host "Running VisitRtd..."
 cd ..\VisitRtd
 Exec { 
     dotnet build /p:Platform=x64 > ..\__tests__\visitrtd.testlog
-    .\Launcher\bin\x64\Debug\netcoreapp3.1\Launcher.exe $projectId $projectApiKey >> ..\__tests__\visitrtd.testlog
+    .\Launcher\bin\x64\Debug\net9.0\Launcher.exe $projectId $projectApiKey >> ..\__tests__\visitrtd.testlog
 }
 cd ..\__tests__
 

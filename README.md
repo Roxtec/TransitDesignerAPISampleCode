@@ -23,8 +23,8 @@ Similarly, all code samples are in C#, under the _csharp_ language folder.
 
 ### .NET Core
 
-The C# code makes use of .NET Core 3.1. It can be installed
-from [here](https://dotnet.microsoft.com/download/dotnet-core/3.1).
+The C# code makes use of .NET 9.0. It can be installed
+from [here](https://dotnet.microsoft.com/en-us/download/dotnet/9.0).
 
 ### Swagger
 
