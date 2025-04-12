@@ -15,11 +15,11 @@ applications instead, run:
 
 To run the sample, run:
 
-    Launcher\bin\x64\Debug\netcoreapp3.0\Launcher.exe <project ID> <project API key>
+    Launcher\bin\x64\Debug\net9.0-windows\Launcher.exe <project ID> <project API key>
 
 Or for the 32-bit version:
 
-    Launcher\bin\x86\Debug\netcoreapp3.0\Launcher.exe <project ID> <project API key>
+    Launcher\bin\x86\Debug\net9.0-windows\Launcher.exe <project ID> <project API key>
 
 Launcher is a console application that will:
 

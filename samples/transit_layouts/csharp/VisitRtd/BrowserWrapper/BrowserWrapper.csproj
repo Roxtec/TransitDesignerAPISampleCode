@@ -1,17 +1,18 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk.WindowsDesktop">
   <PropertyGroup>
     <OutputType>WinExe</OutputType>
-    <TargetFramework>net9.0</TargetFramework>
+    <TargetFramework>net9.0-windows</TargetFramework>
     <UseWindowsForms>true</UseWindowsForms>
     <RootNamespace>BrowserWrapper</RootNamespace>
     <ApplicationManifest>app.manifest</ApplicationManifest>
+    <UseWindowsForms>true</UseWindowsForms>
     <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
     <Platforms>x86;x64</Platforms>
     <StartupObject>BrowserWrapper.Program</StartupObject>
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="CefSharp.WinForms" Version="84.3.10-pre" />
+    <PackageReference Include="CefSharp.WinForms.NETCore" Version="135.0.170" />
   </ItemGroup>
 
   <!-- Make it so that BrowserForm.Customize.cs is nested below BrowserForm.cs -->
@@ -20,21 +21,6 @@
     <Compile Include="BrowserForm.Customize.cs">
       <DependentUpon>BrowserForm.cs</DependentUpon>
     </Compile>
-  </ItemGroup>
-
-  <ItemGroup>
-    <!-- TODO: These updates are currently required because CefSharp.WinForms specifies
-         <Private>false</Private>, which means these libraries will not be specified in
-         the .deps.json file, and so the CoreCLR wouldn't load these. -->
-    <Reference Update="CefSharp">
-      <Private>true</Private>
-    </Reference>
-    <Reference Update="CefSharp.Core">
-      <Private>true</Private>
-    </Reference>
-    <Reference Update="CefSharp.WinForms">
-      <Private>true</Private>
-    </Reference>
   </ItemGroup>
 
   <!-- Include CefSharp.BrowserSubprocess.Core so we can selfhost the BrowserSubProcess using our exe -->

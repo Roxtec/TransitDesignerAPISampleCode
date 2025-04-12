@@ -22,7 +22,7 @@ namespace BrowserWrapper
         {
             this.browser = browser;
             taskCompletionSource = new TaskCompletionSource<bool>();
-            browser.JavascriptObjectRepository.Register("saveCompletion", this, true);
+            browser.JavascriptObjectRepository.Register("saveCompletion", this);
         }
 
         public Task<bool> TrySave()
