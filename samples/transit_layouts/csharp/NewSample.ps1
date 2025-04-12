@@ -38,14 +38,10 @@ using RtdApiCodeSamples;
 using System;
 using System.Net.Http;
 using System.Net.Http.Headers;
-using System.Threading.Tasks;
 using Newtonsoft.Json;
 
-public class Program
+public static async Task Main(string[] args)
 {
-    public static async Task Main(string[] args)
-    {
-        var options = Common.ParseCommandLine(args);
-    }
+    var options = Common.ParseCommandLine(args);
 }
 "@ | Out-File $name\$sampleFileName
