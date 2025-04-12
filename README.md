@@ -21,7 +21,7 @@ Similarly, all code samples are in C#, under the _csharp_ language folder.
 
 ## How to use the samples
 
-### .NET Core
+### .NET version
 
 The C# code makes use of .NET 9.0. It can be installed
 from [here](https://dotnet.microsoft.com/en-us/download/dotnet/9.0).
