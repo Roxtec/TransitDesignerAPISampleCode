@@ -53,7 +53,7 @@ package called `nswag`. Note that this requires Node.js and the `npx` to be inst
     It should return something like (or a newer version number):
 
         > node -v
-        v12.18.3
+        v20.18.0
 
     If it cannot be found, head over to: https://nodejs.org/en/download/
     and download an installation.
@@ -62,41 +62,11 @@ package called `nswag`. Note that this requires Node.js and the `npx` to be inst
 
         npm install -g npx
 
-2. Run the following command from a PowerShell or command prompt:
+3. Run the following command from a PowerShell or command prompt:
 
-        npx nswag swagger2csclient --core 3.1
+        npx nswag openapi2csclient /Namespace:RtdApiCodeSamples /Input:https://transitdesigner.roxtec.com/api/docs/swagger.json /Output:Full.cs
 
-3. The program first asks about namespace of the generated classes. For the samples to work, use "RtdApiCodeSamples" (without quotes).
-
-4. Next, the program asks about the path or URL to swagger.json. Enter: https://transitdesigner.roxtec.com/api/docs/swagger.json
-
-The program now generates a file named `Full`. This file contains C# code
-for the Swagger client.
-
-The entire exchange should look like this (`>` is the prompt):
-
-```
-❯ npx nswag swagger2csclient --core 3.1
-npx: installed 1 in 4.433s
-NSwag NPM CLI
-NSwag command line tool for .NET Core NetCore31, toolchain v13.7.0.0 (NJsonSchema v10.1.24.0 (Newtonsoft.Json v12.0.0.0))
-Visit http://NSwag.org for more information.
-NSwag bin directory: ...
-The namespace of the generated classes.
-Namespace: RtdApiCodeSamples
-A file path or URL to the data or the JSON data itself.
-Input: https://transitdesigner.roxtec.com/api/docs/swagger.json
-Code has been successfully written to file.
-
-Duration: 00:00:11.1543105
-```
-
-**The file `Full` needs to renamed to `Full.cs`**. Please use one of the following commands
-depending on your shell (`>` is the prompt):
-
-    > mv Full Full.cs
-    > move Full Full.cs
-    > rename Full Full.cs
+4. Verify the the file `Full.cs` has been written.
 
 ### Project ID and API key
 
